@@ -37,7 +37,8 @@ const ready = new ReadyHandler(
     client,
     async () => {
         await handler.registerCommands();
-        interactions.buttons();
+	await interactions.registerContextMenus();
+        interactions.start();
     },
     (client) => {
         console.log(`${client.user.tag} is online.`);
