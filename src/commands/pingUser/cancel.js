@@ -3,4 +3,5 @@ module.exports = {
     callback: (i) => {
         i.update({ content: "ok", components: [] });
     },
+    type:"button"
 };

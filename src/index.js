@@ -14,9 +14,18 @@ const client = new Client({
     ],
 });
 
+const LoaderOptions =  {
+	loadedNoChanges: "NAME was loaded, but nothing changed.",
+	loaded: "NAME was registered!",
+	edited: "NAME has been edited.",
+	deleted: "NAME has been deleted.",
+	skipped: "NAME was skipped. (Command deleted or set to delete.)",
+}
+
 const interactions = new InteractionHandler(
     client,
     path.join(__dirname, "commands"),
+    LoaderOptions,
     true
 );
 const handler = new CommandHandler(
@@ -25,12 +34,7 @@ const handler = new CommandHandler(
     {
         devs: ["671549251024584725", "745271655072268318"],
     },
-    {
-        loaded: "NAME was registered!",
-        edited: "NAME has been edited.",
-        deleted: "NAME has been deleted.",
-        skipped: "NAME was skipped. (Command deleted or set to delete.)",
-    }
+    LoaderOptions
 );
 
 const ready = new ReadyHandler(

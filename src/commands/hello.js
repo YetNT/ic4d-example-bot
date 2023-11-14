@@ -5,7 +5,7 @@ const {
 } = require("discord.js");
 
 module.exports = {
-    name: "hello",
+	name: "hello",
     description: "Hello",
     options: [
         {
