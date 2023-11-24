@@ -1,29 +1,25 @@
 const {
-    Client,
     Interaction,
-    ApplicationCommandOptionType,
     ButtonStyle,
     ButtonBuilder,
     ActionRowBuilder,
+    SlashCommandBuilder,
 } = require("discord.js");
+const { SlashCommandObject } = require("ic4d");
 
-module.exports = {
-    name: "ping-user",
-    description: "Ping a user!",
-    options: [
-        {
-            name: "user",
-            description: "hello",
-            type: ApplicationCommandOptionType.User,
-            required: true,
-        },
-    ],
+const pingUser = new SlashCommandObject({
+    data: new SlashCommandBuilder()
+        .setName("ping-user")
+        .setDescription("Ping a user!")
+        .addUserOption((option) =>
+            option.setName("user").setDescription("hello").setRequired(true)
+        ),
+
     /**
      *
-     * @param {Client} client
      * @param {Interaction} interaction
      */
-    callback: (client, interaction) => {
+    async execute(interaction) {
         const s = interaction.options.get("user").value;
 
         interaction.reply({
@@ -42,4 +38,6 @@ module.exports = {
             ],
         });
     },
-};
+});
+
+module.exports = pingUser;
