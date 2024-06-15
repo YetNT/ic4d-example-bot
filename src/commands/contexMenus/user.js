@@ -1,15 +1,22 @@
-const { ApplicationCommandType } = require("discord.js")
+const {
+    ApplicationCommandType,
+    ContextMenuCommandBuilder,
+    ContextMenuCommandType,
+} = require("discord.js");
+const { ContextMenuBuilder } = require("ic4d");
 
-module.exports = {
-	isCommand: false,
-	name:"Get Image",
-	type: ApplicationCommandType.User,
-	callback: (i) => {
-		const user = i.targetUser
+const user = new ContextMenuBuilder({
+    data: new ContextMenuCommandBuilder()
+        .setName("Get User")
+        .setType(ApplicationCommandType.User),
+    execute: (i) => {
+        const user = i.targetUser;
 
-		i.reply({
-			ephemeral:true,
-			content: user.displayAvatarURL()
-		})
-	}
-}
+        i.reply({
+            ephemeral: true,
+            content: user.displayAvatarURL(),
+        });
+    },
+});
+
+module.exports = user;

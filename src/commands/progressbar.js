@@ -1,7 +1,9 @@
+// This uses the object directly instead of builders, not recommended but it works.
+
 const {
     Client,
-    Interaction,
     ApplicationCommandOptionType,
+    CommandInteraction,
 } = require("discord.js");
 
 const { ProgressBar } = require("@yetnt/progressbar");
@@ -34,7 +36,7 @@ module.exports = {
     /**
      *
      * @param {Client} client
-     * @param {Interaction} interaction
+     * @param {CommandInteraction} interaction
      */
     callback: async (client, interaction) => {
         let p = interaction.options.get("percentage").value;

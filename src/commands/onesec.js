@@ -1,31 +1,41 @@
-const {SlashCommandObject, CommandInteractionObject} = require("ic4d")
-const {ButtonBuilder, ActionRowBuilder, ButtonStyle} = require("discord.js")
+const {
+    SlashCommandObject,
+    CommandInteractionObject,
+    InteractionBuilder,
+    SlashCommandManager,
+} = require("ic4d");
+const {
+    ButtonBuilder,
+    ActionRowBuilder,
+    ButtonStyle,
+    SlashCommandBuilder,
+} = require("discord.js");
 
-const button = new CommandInteractionObject({
-        customId:"button",
-        type:"button",
-        callback: (i) => {i.update("Damn you did it! Now do it again (Bet you can't)")},
-        timeout: 1_000,
-	timeoutMsg: "Loser, the button timed out."
-})
+const button = new InteractionBuilder()
+    .setCustomId("button")
+    .setType("button")
+    .setTimeout((interaction, client) => {
+        interaction.update("Loser, the button timed out.");
+    }, 1_000)
+    .setCallback((i) => {
+        i.update("Damn you did it! Now do it again (Bet you can't)");
+    });
 
-const onesec = new SlashCommandObject({
-	name:"onesecond",
-        description:"lol",
-        callback: (c, i) => {
-                i.reply({
-                        content: "e",
-                        components: [
-                                new ActionRowBuilder()
-                                        .addComponents(
-                                                new ButtonBuilder()
-                                                       .setCustomId("button")
-                                                       .setLabel("click me!")
-                                                       .setStyle(ButtonStyle.Success)
-                                        )
-                        ]
-                })
-        }
-}, button)
+const onesec = new SlashCommandManager({
+    data: new SlashCommandBuilder().setName("onesecond").setDescription("lol"),
+    execute: (interaction, client) => {
+        interaction.reply({
+            content: "e",
+            components: [
+                new ActionRowBuilder().addComponents(
+                    new ButtonBuilder()
+                        .setCustomId("button")
+                        .setLabel("click me!")
+                        .setStyle(ButtonStyle.Success)
+                ),
+            ],
+        });
+    },
+}).addInteractions(button);
 
-module.exports = onesec
+module.exports = onesec;

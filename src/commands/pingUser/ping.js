@@ -5,9 +5,9 @@ const {
     ActionRowBuilder,
     SlashCommandBuilder,
 } = require("discord.js");
-const { SlashCommandObject } = require("ic4d");
+const { SlashCommandManager } = require("ic4d");
 
-const pingUser = new SlashCommandObject({
+const pingUser = new SlashCommandManager({
     data: new SlashCommandBuilder()
         .setName("ping-user")
         .setDescription("Ping a user!")
@@ -15,10 +15,6 @@ const pingUser = new SlashCommandObject({
             option.setName("user").setDescription("hello").setRequired(true)
         ),
 
-    /**
-     *
-     * @param {Interaction} interaction
-     */
     async execute(interaction) {
         const s = interaction.options.get("user").value;
 

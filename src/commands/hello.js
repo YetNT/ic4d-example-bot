@@ -1,3 +1,5 @@
+// This uses the object directly instead of builders, not recommended but it works.
+
 const {
     Client,
     Interaction,
@@ -5,7 +7,7 @@ const {
 } = require("discord.js");
 
 module.exports = {
-	name: "hello",
+    name: "hello",
     description: "Hello",
     options: [
         {
