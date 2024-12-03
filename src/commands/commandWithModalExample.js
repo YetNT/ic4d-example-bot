@@ -9,7 +9,7 @@ const {
 const {
     SlashCommandManager,
     InteractionBuilder,
-} = require("../../../../code/ic4d/dist/index.js");
+} = require("../../../ic4d/dist/index.js");
 
 const myModal = new InteractionBuilder()
     .setCustomId("myModal")

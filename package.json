@@ -7,13 +7,18 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "",
-    "license": "ISC",
+    "license": "MIT",
     "dependencies": {
         "@yetnt/progressbar": "^3.0.1",
-        "discord.js": "^14.15.3",
+        "discord.js": "^14.16.3",
         "disgamekit": "^2.2.0",
-        "dotenv": "^16.4.5",
+        "dotenv": "^16.4.6",
         "ic4d": "^4.0.1",
         "path": "^0.12.7"
+    },
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^8.17.0",
+        "@typescript-eslint/parser": "^8.17.0",
+        "eslint": "^9.16.0"
     }
 }

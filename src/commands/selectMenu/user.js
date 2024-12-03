@@ -11,3 +11,5 @@ const users = new InteractionBuilder()
     });
 
 module.exports = users;
+// exported to command.js
+// this doesnt need it's own file, but it's just for showcase purposes.

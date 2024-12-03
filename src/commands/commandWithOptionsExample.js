@@ -26,7 +26,7 @@ const progressbar = new SlashCommandManager({
                 .setDescription("split char")
                 .setRequired(false)
         ),
-    execute: async (client, interaction) => {
+    execute: async (interaction, client) => {
         let p = interaction.options.get("percentage").value;
         let w = interaction.options.get("width").value;
         let split = interaction.options.get("split")?.value;

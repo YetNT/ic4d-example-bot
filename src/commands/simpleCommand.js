@@ -8,7 +8,7 @@ const hello = new SlashCommandManager({
         .addStringOption((option) =>
             option.setName("hello").setDescription("Hello").setRequired(true)
         ),
-    execute(client, interaction) {
+    execute(interaction, client) {
         const s = interaction.options.get("hello").value;
         interaction.reply("Hello " + s);
     },

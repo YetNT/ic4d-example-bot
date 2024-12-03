@@ -1,3 +1,6 @@
+// This command uses Interaction buiilders exported from other files.
+// This is just an exmaple you don't need to have them in separate files.
+
 const {
     StringSelectMenuBuilder,
     UserSelectMenuBuilder,
@@ -13,7 +16,7 @@ const selectmenu = new SlashCommandManager({
     data: new SlashCommandBuilder()
         .setName("selectmenu")
         .setDescription("this should prolly work"),
-    async execute(client, interaction) {
+    async execute(interaction, client) {
         const select = new StringSelectMenuBuilder()
             .setCustomId("pick")
             .setPlaceholder("Pick something.")
