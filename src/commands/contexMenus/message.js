@@ -1,13 +1,21 @@
-const { ApplicationCommandType } = require("discord.js")
+const {
+    ApplicationCommandType,
+    ContextMenuCommandBuilder,
+} = require("discord.js");
+const { ContextMenuBuilder } = require("ic4d");
 
-module.exports = {
-	name:"Message URL",
-	type: ApplicationCommandType.Message,
-	isCommand: false,
+const url = new ContextMenuBuilder({
+    data: new ContextMenuCommandBuilder()
+        .setName("Get Message URL")
+        .setType(ApplicationCommandType.Message),
+    execute: (i) => {
+        const m = i.targetMessage;
 
-	callback: (i) => {
-		const m = i.targetMessage
+        i.reply({
+            ephemeral: true,
+            content: `The message URL is: ${m.url}`,
+        });
+    },
+});
 
-		i.reply(m.url)
-	}
-}
+module.exports = url;

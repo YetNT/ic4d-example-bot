@@ -1,29 +1,17 @@
-// This uses the object directly instead of builders, not recommended but it works.
+const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandManager } = require("ic4d");
 
-const {
-    Client,
-    Interaction,
-    ApplicationCommandOptionType,
-} = require("discord.js");
-
-module.exports = {
-    name: "hello",
-    description: "Hello",
-    options: [
-        {
-            name: "hello",
-            description: "hello",
-            type: ApplicationCommandOptionType.String,
-            required: true,
-        },
-    ],
-    /**
-     *
-     * @param {Client} client
-     * @param {Interaction} interaction
-     */
-    callback: (client, interaction) => {
+const hello = new SlashCommandManager({
+    data: new SlashCommandBuilder()
+        .setName("hello")
+        .setDescription("Hello")
+        .addStringOption((option) =>
+            option.setName("hello").setDescription("Hello").setRequired(true)
+        ),
+    execute(client, interaction) {
         const s = interaction.options.get("hello").value;
         interaction.reply("Hello " + s);
     },
-};
+});
+
+module.exports = hello;

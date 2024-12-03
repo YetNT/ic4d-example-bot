@@ -1,11 +1,10 @@
 const {
-    Interaction,
     ButtonStyle,
     ButtonBuilder,
     ActionRowBuilder,
     SlashCommandBuilder,
 } = require("discord.js");
-const { SlashCommandManager } = require("ic4d");
+const { SlashCommandManager, InteractionBuilder } = require("ic4d");
 
 const pingUser = new SlashCommandManager({
     data: new SlashCommandBuilder()
@@ -34,6 +33,19 @@ const pingUser = new SlashCommandManager({
             ],
         });
     },
-});
+}).addInteractions(
+    new InteractionBuilder()
+        .setCustomId("cancel")
+        .setType("button")
+        .setCallback((i) => {
+            i.update({ content: "ok", components: [] });
+        }),
+    new InteractionBuilder()
+        .setCustomId("yes")
+        .setType("button")
+        .setCallback((i) => {
+            i.update({ content: "PING", components: [] });
+        })
+);
 
 module.exports = pingUser;

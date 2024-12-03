@@ -1,9 +1,4 @@
-const {
-    SlashCommandObject,
-    CommandInteractionObject,
-    InteractionBuilder,
-    SlashCommandManager,
-} = require("ic4d");
+const { InteractionBuilder, SlashCommandManager } = require("ic4d");
 const {
     ButtonBuilder,
     ActionRowBuilder,

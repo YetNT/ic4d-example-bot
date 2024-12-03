@@ -7,8 +7,6 @@ const {
     SlashCommandBuilder,
 } = require("discord.js");
 const {
-    SlashCommandObject,
-    CommandInteractionObject,
     SlashCommandManager,
     InteractionBuilder,
 } = require("../../../../code/ic4d/dist/index.js");

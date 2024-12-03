@@ -1,7 +1,6 @@
 const {
     ApplicationCommandType,
     ContextMenuCommandBuilder,
-    ContextMenuCommandType,
 } = require("discord.js");
 const { ContextMenuBuilder } = require("ic4d");
 

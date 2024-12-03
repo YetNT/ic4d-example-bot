@@ -1,5 +1,10 @@
 require("dotenv").config();
-const { CommandHandler, ReadyHandler, InteractionHandler } = require("ic4d");
+const {
+    CommandHandler,
+    ReadyHandler,
+    InteractionHandler,
+    CoreHandler,
+} = require("ic4d");
 const {
     Client,
     IntentsBitField,
@@ -14,22 +19,23 @@ const client = new Client({
     ],
 });
 
-const LoaderOptions =  {
-	loadedNoChanges: "NAME was loaded, but nothing changed.",
-	loaded: "NAME was registered!",
-	edited: "NAME has been edited.",
-	deleted: "NAME has been deleted.",
-	skipped: "NAME was skipped. (Command deleted or set to delete.)",
-}
+const core = new CoreHandler(client, path.join(__dirname, "..", "logs"));
+
+const LoaderOptions = {
+    loadedNoChanges: "NAME was loaded, but nothing changed.",
+    loaded: "NAME was registered!",
+    edited: "NAME has been edited.",
+    deleted: "NAME has been deleted.",
+    skipped: "NAME was skipped. (Command deleted or set to delete.)",
+};
 
 const interactions = new InteractionHandler(
-    client,
+    core,
     path.join(__dirname, "commands"),
-    LoaderOptions,
-    true
+    LoaderOptions
 );
 const handler = new CommandHandler(
-    client,
+    core,
     path.join(__dirname, "commands"),
     {
         devs: ["671549251024584725", "745271655072268318"],
@@ -38,11 +44,12 @@ const handler = new CommandHandler(
 );
 
 const ready = new ReadyHandler(
-    client,
+    core,
+    undefined,
     async () => {
         await handler.registerCommands();
-	await interactions.registerContextMenus();
-        interactions.start();
+        await interactions.registerContextMenus();
+        interactions.start("this aint ur interaction dawg");
     },
     (client) => {
         console.log(`${client.user.tag} is online.`);
@@ -52,7 +59,32 @@ const ready = new ReadyHandler(
 (async () => {
     try {
         ready.execute();
-        await handler.handleCommands();
+
+        await handler.handleCommands(
+            [
+                // middleware example
+                async (obj, interaction) => {
+                    // print command name
+                    console.log(obj.name);
+                    // if "userId" triggered the command, stop execution and respond with epheremal
+                    const userId = "jdfkjsfd"; // replace with real ID of course, or jusdt remove this, it's just an example.
+                    if (interaction.id === userId) {
+                        await interaction.reply({
+                            ephemeral: true,
+                            content: "u not allowed to use this command.",
+                        });
+                        return 1;
+                    }
+                    return 0;
+                },
+            ],
+            [
+                // postware example
+                (obj, interaction) => {
+                    console.log("interaction replied? " + interaction.replied);
+                },
+            ]
+        );
     } catch (error) {
         console.log(error);
     }

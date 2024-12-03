@@ -1,44 +1,32 @@
-// This uses the object directly instead of builders, not recommended but it works.
-
-const {
-    Client,
-    ApplicationCommandOptionType,
-    CommandInteraction,
-} = require("discord.js");
+const { SlashCommandBuilder } = require("discord.js");
 
 const { ProgressBar } = require("@yetnt/progressbar");
+const { SlashCommandManager } = require("ic4d");
 
-module.exports = {
-    name: "progressbar",
-    description: "progress bar",
-    options: [
-        {
-            name: "percentage",
-            description: "percentage of the bar filled",
-            type: ApplicationCommandOptionType.Integer,
-            required: true,
-            max_value: 100,
-        },
-        {
-            name: "width",
-            description: "width of the bar",
-            type: ApplicationCommandOptionType.Integer,
-            required: true,
-        },
-        {
-            name: "split",
-            description: "split char",
-            type: ApplicationCommandOptionType.Boolean,
-            required: false,
-        },
-    ],
-
-    /**
-     *
-     * @param {Client} client
-     * @param {CommandInteraction} interaction
-     */
-    callback: async (client, interaction) => {
+const progressbar = new SlashCommandManager({
+    data: new SlashCommandBuilder()
+        .setName("progressbar")
+        .setDescription("progress bar")
+        .addIntegerOption((option) =>
+            option
+                .setName("percentage")
+                .setDescription("percentage of the bar filled")
+                .setRequired(true)
+                .setMaxValue(100)
+        )
+        .addIntegerOption((option) =>
+            option
+                .setName("width")
+                .setDescription("width of the bar")
+                .setRequired(true)
+        )
+        .addBooleanOption((option) =>
+            option
+                .setName("split")
+                .setDescription("split char")
+                .setRequired(false)
+        ),
+    execute: async (client, interaction) => {
         let p = interaction.options.get("percentage").value;
         let w = interaction.options.get("width").value;
         let split = interaction.options.get("split")?.value;
@@ -53,4 +41,6 @@ module.exports = {
             ephemeral: true,
         });
     },
-};
+});
+
+module.exports = progressbar;
