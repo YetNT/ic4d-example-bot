@@ -11,6 +11,7 @@
     "dependencies": {
         "@yetnt/progressbar": "^3.0.1",
         "discord.js": "^14.15.3",
+        "disgamekit": "^2.2.0",
         "dotenv": "^16.4.5",
         "ic4d": "^4.0.1",
         "path": "^0.12.7"
